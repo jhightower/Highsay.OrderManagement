@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="app" class="container-fluid mt-4">
+    <h1 class="h1">User Manager</h1>
+    <b-alert v-show="loading" variant="info">Loading...</b-alert>
+    <b-row>
+        <b-col>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users" :key="user.UserId">
+                        <td>{{ user.UserId }}</td>
+                        <td>{{ user.FirstName }}</td>
+                        <td>{{ user.LastName }}</td>
+                        <td class="text-right">
+                            <a href="#" v-on:click.prevent="populateUserToEdit(user)">Edit</a> -
+                            <a href="#" v-on:click.prevent="deleteUser(user.UserId)">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </b-col>
+        <b-col lg="3">
+            <b-card :title="(model.UserId ? 'Edit User ID#' + model.UserId : 'New User')">
+                <form @Html.Raw("@") submit.prevent="savePost">
+                    <b-form-group label="Title">
+                        <b-form-input type="text" v-model="model.title"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Body">
+                        <b-form-textarea rows="4" v-model="model.body"></b-form-textarea>
+                    </b-form-group>
+                    <div>
+                        <b-btn type="submit" variant="success">Save Post</b-btn>
+                    </div>
+                </form>
+            </b-card>
+        </b-col>
+    </b-row>
+</div>
+@section scripts
+{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                loading: false,
+                users: [],
+                model: {}
+            },
+            mounted: function () {
+                this.refreshUsers();
+            },
+            methods: {
+                populateUserToEdit: function (user) {
+                    console.log(user);
+                },
+                deleteUser: function (userId) {
+                    console.log(userId);
+                },
+                refreshUsers: function () {
+                    var self = this;
+                    self.loading = true;
+                    $.ajax({
+                        url: '/api/User',
+                        method: 'GET',
+                        success: function (data) {
+                            self.users = data;
+                            self.loading = false;
+                        },
+                        error: function (error) {
+                            self.loading = false;
+                            console.log(error);
+                        }
+                    });
+                    
+                }
+            }
+        });
+    </script>
+}
