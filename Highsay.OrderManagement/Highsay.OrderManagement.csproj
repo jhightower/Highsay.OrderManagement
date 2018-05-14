@@ -164,11 +164,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\OrdersController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Api\OrderController.cs" />
     <Compile Include="Dal\OrderMgmtContext.cs" />
     <Compile Include="Dal\OrderMgmtIntializer.cs" />
     <Compile Include="Global.asax.cs">

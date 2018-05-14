@@ -21,7 +21,7 @@
                         <input type="text" class="form-control" id="lastNameInput" v-model="model.LastName" />
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-default">Save User</button>
+                        <button type="submit" class="btn btn-primary">Save User</button>
                     </div>
                 </form>
             </div>
@@ -122,14 +122,13 @@
                         }
                     });
                 },
-                saveUser: function() {
+                saveUser: function () {
                     if (this.model.UserId) {
                         this.updateUserApi(this.model.UserId, this.model);
                     } else {
                         this.createUserApi(this.model);
                     }
-                    this.model = {}; // reset form
-                    //this.refreshUsers();
+                    this.model = {};
                 },
                 refreshUsers: function () {
                     var self = this;

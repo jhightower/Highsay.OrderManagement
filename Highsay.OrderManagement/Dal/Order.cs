@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Highsay.OrderManagement.Dal
 {
@@ -15,6 +13,10 @@ namespace Highsay.OrderManagement.Dal
 
         public string State { get; set; }
         public string ZipCode { get; set; }
+
+      
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
         public virtual User User { get; set; }
 
