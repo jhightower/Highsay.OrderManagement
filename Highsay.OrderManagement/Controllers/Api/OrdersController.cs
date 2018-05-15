@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Highsay.OrderManagement.Dal;
@@ -19,7 +15,7 @@ namespace Highsay.OrderManagement.Controllers.Api
         // GET: api/Orders
         public IQueryable<Order> GetOrder()
         {
-            return db.Order.Include(x => x.User);
+            return db.Order.Include(x=>x.User);
         }
 
         // GET: api/Orders/5
@@ -50,9 +46,10 @@ namespace Highsay.OrderManagement.Controllers.Api
             }
 
             order.UserId = order.User.UserId;
+            //order.User = null;
             db.Entry(order).State = EntityState.Modified;
             //order.User = new User() { UserId = order.User.UserId };
-            //db.Entry(order.User).State = EntityState.Modified;
+            db.Entry(order.User).State = EntityState.Modified;
 
             try
             {
@@ -83,8 +80,8 @@ namespace Highsay.OrderManagement.Controllers.Api
             }
 
             order.UserId = order.User.UserId;
+            order.User = null;
             db.Order.Add(order);
-            //db.Entry(order.User).State = EntityState.Modified;
             db.SaveChanges();
 
 
